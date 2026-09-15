@@ -1,0 +1,16 @@
+.card {
+    padding: 20px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    background: white;
+}
+
+.title {
+    margin: 0;
+    font-size: 14px;
+}
+
+.value {
+    margin: 8px 0 0;
+    font-size: 28px;
+}

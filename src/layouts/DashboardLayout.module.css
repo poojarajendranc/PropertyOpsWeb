@@ -1,0 +1,33 @@
+.container {
+    border: 2px solid #000;
+}
+
+.headers {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 20px;
+    padding-left: 20px;
+    border-bottom: 2px solid #000;
+}
+
+.body {
+    display: flex;
+    width: 100%;
+}
+
+.leftDrawer {
+    width: 150px;
+    border-right: 1px solid #000;
+    padding-top: 20px;
+    align-content: flex-start;
+}
+
+.main {
+    flex:1
+}
+
+.drawerItem {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #000;
+}
