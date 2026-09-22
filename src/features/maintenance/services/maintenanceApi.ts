@@ -1,4 +1,4 @@
-import type { MaintenanceRequest, MaintenanceStatus } from "../types/maintenance";
+import type { MaintenanceRequest, MaintenanceStatus, PriorityStatus } from "../types/maintenance";
 import api from "../../../services/api";
 
 interface MaintenanceResponse {
@@ -13,9 +13,9 @@ export const getMaintenanceRequests = async (): Promise<MaintenanceRequest[]> =>
 
 interface CreateMaintenanceRequest {
     title: string;
-    priority: string;
-    status: string;
-    description: string
+    priority: PriorityStatus;
+    status: MaintenanceStatus;
+    description?: string
 }
 
 export const createMaintenanceRequest = async (request: CreateMaintenanceRequest) => {

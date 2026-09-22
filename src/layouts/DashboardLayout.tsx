@@ -2,21 +2,31 @@ import { useState, type ReactNode } from "react";
 import { COMMON_LABELS } from "../constants/common/label";
 import { HOME_LABELS } from "../features/home/label";
 import styles from './DashboardLayout.module.css';
+import { removeToken } from "../services/authStorage";
+import { useNavigate } from "react-router-dom";
 
 interface DashboardLayoutProps {
     readonly children: ReactNode;
 }
 function DashboardLayout({ children }: Readonly<DashboardLayoutProps>) {
+    const navigate = useNavigate()
     const [currentTab, setCurrentTab] = useState(COMMON_LABELS.DASHBOARD)
 
     const handleTabPress = (selectedTab: string) => {
         setCurrentTab(selectedTab)
     }
+
+    const handleLogout = () => {
+        removeToken();
+        navigate('/login',{replace:true})
+
+    }
+
     return (
         <div className={styles.container}>
             <div className={styles.headers}>
                 <p>{HOME_LABELS.TITLE}</p>
-                <p>{HOME_LABELS.USER_LOGOUT}</p>
+                <button onClick={handleLogout}>{HOME_LABELS.USER_LOGOUT}</button>
             </div>
             <div className={styles.body}>
                 <aside className={styles.leftDrawer}>

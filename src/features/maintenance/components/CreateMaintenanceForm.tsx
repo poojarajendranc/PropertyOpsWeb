@@ -1,58 +1,85 @@
-import { useState } from "react";
-import type { MaintenanceStatus, PriorityStatus } from "../types/maintenance";
 import { createMaintenanceRequest } from "../services/maintenanceApi";
+import axios from "axios";
+import { useForm } from "react-hook-form";
+import { createMaintenanceSchema } from "../schemas/maintenance.schema";
+import type { CreateMaintenanceFormData } from "../schemas/maintenance.schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 
 interface CreateMaintenanceFormProps {
     readonly onCreated: () => void;
 }
 
 function CreateMaintenanceForm({ onCreated }: CreateMaintenanceFormProps) {
-    const [title, setTitle] = useState('')
-    const [priority, setPriority] = useState<PriorityStatus>()
-    const [status, setStatus] = useState<MaintenanceStatus>()
-    const [description, setDescription] = useState<string>('')
-    const handleSubmit = async (event: React.FormEvent) => {
-        event.preventDefault();
-        try {
-            await createMaintenanceRequest({ title, priority: "Low", status: "Open", description })
+    const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<CreateMaintenanceFormData>({
+        resolver: zodResolver(createMaintenanceSchema),
+        defaultValues: {
+            title: "",
+            status: "Open",
+            priority: "Medium",
+            description: "",
+        }
+    })
+    const [apiError, setApiError] = useState("");
 
-            setTitle("");
-            setStatus("Open");
-            setPriority("Low");
-            setDescription("");
+    const onSubmit = async (data: CreateMaintenanceFormData) => {
+        try {
+            setApiError("")
+            await createMaintenanceRequest({
+                ...data,
+                status: "Open",
+            })
+
+            reset();
             onCreated()
         } catch (error) {
-            console.error("Failed to create maintenance request:", error);
+            if (axios.isAxiosError(error)) {
+                console.error("Failed to create maintenance request:", error);
+                setApiError(error.response?.data.message ?? "Something went wrong")
+            } else {
+                setApiError("Something went wrong")
+            }
         }
     }
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
             <h2>Create Maintenance Request</h2>
+            {apiError && <p>{apiError}</p>}
             <input
                 type="text"
                 placeholder="Title"
-                value={title}
-                onChange={(event) => setTitle(event.target.value)}>
+                {...register("title")}
+            >
             </input>
-            <select value={priority}
-             onChange={(event) => setPriority(event.target.value as PriorityStatus)}>
+            {errors.title && (
+                <p>{errors.title.message}</p>
+            )}
+            <select {...register("priority")}
+            >
                 <option value="Low">Low</option>
                 <option value="Medium">Medium</option>
                 <option value="High">High</option>
             </select>
-            <select value={status}
-            onChange={(event) => setStatus(event.target.value as MaintenanceStatus)}>
+            {errors.priority && (
+                <p>{errors.priority.message}</p>
+            )}
+            <select  {...register("status")}
+            >
                 <option value="Open">Open</option>
                 <option value="Assigned">Assigned</option>
                 <option value="In Progress">In Progress</option>
                 <option value="Completed">Completed</option>
             </select>
-            <textarea
+            {errors.status && (
+                <p>{errors.status.message}</p>
+            )}
+            <textarea {...register("description")}
                 placeholder="Description"
-                value={description}
-                onChange={(event) => setDescription(event.target.value)}
             />
-            <button type="submit">Create Request</button>
+            {errors.description && (
+                <p>{errors.description.message}</p>
+            )}
+            <button type="submit" disabled={isSubmitting}>{isSubmitting ? `Creating...` : 'Create Request'}</button>
         </form>
     )
 }

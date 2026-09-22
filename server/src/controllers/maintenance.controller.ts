@@ -1,7 +1,6 @@
 import type { Request, Response } from "express";
 import { createMaintenanceRequest, deleteMaintenanceRequest, getMaintenanceRequests, updateMaintenanceStatus } from "../services/maintenance.service.js";
 import responseHandler from "../utils/responseHandler.js";
-import { createMaintenanceSchema, updateMaintenanceSchema } from "../schemas/maintenance.schema.js";
 
 export const getMaintenance = async (_req: Request, res: Response) => {
     try {
