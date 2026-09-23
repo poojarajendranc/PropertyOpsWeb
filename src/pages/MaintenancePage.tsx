@@ -31,7 +31,7 @@ function MaintenancePage() {
         }
     }
     useEffect(() => {
-
+        console.log("1----------------")
         loadMaintenanceRequests()
     }, [])
 
@@ -39,6 +39,10 @@ function MaintenancePage() {
         setSelectedRequest(request);
         setIsDetailsModalOpen(true);
     };
+
+    useEffect(() => {
+           console.log("Test----------------")
+    })
 
     return (
         <div>
@@ -72,6 +76,7 @@ function MaintenancePage() {
             >
                 <CreateMaintenanceForm onCreated={() => {
                     setIsCreateModalOpen(false);
+                     console.log("2----------------")
                     loadMaintenanceRequests();
                 }} />
             </AppModal >
