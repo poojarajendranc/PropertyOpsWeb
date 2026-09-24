@@ -1,0 +1,49 @@
+.baseContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.mainHeaderText {
+    color:var(--color-primary);
+    margin:0
+}
+
+.headerView {
+    display: inline-flex;
+    align-items: center;
+    gap:10px;
+    width: fit-content;
+}
+
+.itemCard {
+    width: 100%;
+    max-width: 500px;
+    padding: 10px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    margin-bottom: 20px;
+}
+
+.headerView {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.iconsHolder {
+    gap: 10px;
+    display: flex;
+}
+
+.headerTextStyle {
+    color: var(--color-primary)
+}
+
+.cardHeaderTextStyle {
+    color: var(--color-primary-medium);
+    font-size: 20px;
+    font-weight: 600;
+}

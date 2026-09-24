@@ -43,7 +43,6 @@ function CreateMaintenanceForm({ onCreated }: CreateMaintenanceFormProps) {
     }
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <h2>Create Maintenance Request</h2>
             {apiError && <p>{apiError}</p>}
             <input
                 type="text"

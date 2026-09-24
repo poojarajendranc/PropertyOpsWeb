@@ -2,15 +2,19 @@ import { useEffect, useState } from "react";
 import StatusBadge from "../../../components/StatusBadge";
 import type { MaintenanceRequest, MaintenanceStatus } from "../types/maintenance";
 import { deleteMaintenanceRequest, updateMaintenanceRequest } from "../services/maintenanceApi";
-
+import styles from '../styles/Maintenance.module.css'
+import {
+    Trash, LucideEye
+} from "lucide-react";
 interface MaintenanceTableProps {
+    readonly isDashboard?: boolean
     readonly requests: MaintenanceRequest[]
     readonly onSelectRequest: (request: MaintenanceRequest) => void
 }
 
-function MaintenanceTable({ requests, onSelectRequest }: MaintenanceTableProps) {
+function MaintenanceTable({ isDashboard = false, requests, onSelectRequest }: MaintenanceTableProps) {
     const [maintenanceRequests, setMaintenanceRequests] = useState<MaintenanceRequest[]>([]);
-    console.log("requests:", maintenanceRequests)
+
 
     useEffect(() => {
         if (requests) {
@@ -33,26 +37,30 @@ function MaintenanceTable({ requests, onSelectRequest }: MaintenanceTableProps) 
 
     return (
         <div>
-            <h2>Recent Maintenance Requests</h2>
-            {maintenanceRequests.map((request) => (
-                <div key={request.id}>
-                    <p>{request.title}</p>
-                    <p>Priority:{request.priority}</p>
-                    <StatusBadge status={request.status} />
-                    <button
-                        onClick={() => onSelectRequest(request)}>
-                        View
-                    </button>
-                    <button
-                        onClick={() => updateStatus(request.id, 'Completed')}>
-                        Complete
-                    </button>
-                    <button
-                        onClick={() => deleteMaintenanceItem(request.id)}>
-                        Delete
-                    </button>
-                </div>
-            ))}
+            <h2 className={styles.headerTextStyle}>Recent Maintenance Requests</h2>
+            <div className={styles.baseContainer}>
+                {maintenanceRequests.map((request) => (
+                    <div className={styles.itemCard} key={request.id}>
+                        <div className={styles.headerView}>
+                            <p className={styles.cardHeaderTextStyle}>{request.title}</p>
+                            <div className={styles.iconsHolder}>
+                                <LucideEye
+                                    onClick={() => onSelectRequest(request)} />
+                                {!isDashboard && <Trash
+                                    onClick={() => deleteMaintenanceItem(request.id)} />}
+                            </div>
+                        </div>
+                        <p>Priority:{request.priority}</p>
+                        <StatusBadge status={request.status} />
+
+                        {!isDashboard && <button
+                            onClick={() => updateStatus(request.id, 'Completed')}>
+                            Complete
+                        </button>}
+
+                    </div>
+                ))}
+            </div>
         </div>
     )
 

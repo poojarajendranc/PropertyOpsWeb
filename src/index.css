@@ -1,6 +1,7 @@
 :root {
     --color-primary: #2F6B4F;
     --color-primary-dark: #24543E;
+    --color-primary-medium: #39C487;
     --color-primary-light: #E8F2EC;
  
     --color-background: #F6F9F7;
@@ -9,7 +10,7 @@
     --color-border: #DCE7E0;
  
     --color-text: #26332C;
-    --color-text-muted: #718078;
+    --color-text-muted: #4fa075;
  
     --color-danger: #C94A4A;
     --color-danger-light: #FDECEC;
