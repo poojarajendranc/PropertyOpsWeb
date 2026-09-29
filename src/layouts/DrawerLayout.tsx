@@ -46,25 +46,25 @@ function DrawerLayout() {
                             <LayoutDashboard size={19} />
                             <span className={styles.drawerTitle}>{COMMON_LABELS.DASHBOARD}</span>
                         </NavLink>
-                        <NavLink to="/properties"
+                        {/* <NavLink to="/properties"
                             className={({ isActive }) => `${styles.drawerItem}
                             ${isActive ? styles.drawerItemActive : ""}`}>
                             <Building2 size={19} />
                             <span className={styles.drawerTitle}>{COMMON_LABELS.PROPERTIES}</span>
-                        </NavLink>
-                        <NavLink to="/staff"
+                        </NavLink> */}
+                        {/* <NavLink to="/staff"
                             className={({ isActive }) => `${styles.drawerItem}
                             ${isActive ? styles.drawerItemActive : ""}`}>
                             <Users size={19} />
                             <span className={styles.drawerTitle}>{COMMON_LABELS.STAFF}</span>
-                        </NavLink>
+                        </NavLink> */}
                         <NavLink to="/maintenance"
                             className={({ isActive }) => `${styles.drawerItem}
                             ${isActive ? styles.drawerItemActive : ""}`}>
                             <Wrench size={19} />
                             <span className={styles.drawerTitle}>{COMMON_LABELS.MAINTENANCE}</span>
                         </NavLink>
-                        <NavLink to="/inventory"
+                        {/* <NavLink to="/inventory"
                             className={({ isActive }) => `${styles.drawerItem}
                             ${isActive ? styles.drawerItemActive : ""}`}>
                             <Package size={19} />
@@ -75,7 +75,7 @@ function DrawerLayout() {
                             ${isActive ? styles.drawerItemActive : ""}`}>
                             <CalendarDays size={19} />
                             <span className={styles.drawerTitle}>{COMMON_LABELS.BOOKINGS}</span>
-                        </NavLink>
+                        </NavLink> */}
 
                     </nav>
                     <button className={styles.logoutButton}

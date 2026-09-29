@@ -54,6 +54,7 @@ function MaintenanceTable({ isDashboard = false, requests, onSelectRequest }: Ma
                         <StatusBadge status={request.status} />
 
                         {!isDashboard && <button
+                            className={styles.submitButton}
                             onClick={() => updateStatus(request.id, 'Completed')}>
                             Complete
                         </button>}

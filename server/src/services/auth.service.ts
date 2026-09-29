@@ -38,21 +38,30 @@ export const loginUser = async (credentials: LoginRequest) => {
         throw new Error("JWT SECRET is not configured")
     }
 
-    const token = jwt.sign({
+    const accessToken = jwt.sign({
         userId: user.id,
         role: user.role
     },
         jwtSecret, {
-        expiresIn: '1h'
+        expiresIn: '15m'
+    })
+
+    const refreshToken = jwt.sign({
+        userId: user.id,
+        role: user.role
+    },
+        jwtSecret, {
+        expiresIn: '7d'
     })
 
     return {
-        token,
-        user:{
+        accessToken,
+        refreshToken,
+        user: {
             id: user.id,
-            name:user.name,
-            email:user.email,
-            role:user.role
+            name: user.name,
+            email: user.email,
+            role: user.role
         }
     }
 

@@ -1,0 +1,34 @@
+.container {
+    width: 100%;
+}
+ 
+.select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 36px 10px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+}
+ 
+.select:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+ 
+.select:disabled {
+    background-color: var(--color-background);
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+ 
+.error {
+    display: block;
+    margin-top: 5px;
+    color: var(--color-danger);
+    font-size: 12px;
+}

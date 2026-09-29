@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { login } from "../../../services/authApi";
 import { useNavigate } from "react-router-dom";
-import { saveToken } from "../../../services/authStorage";
+import { saveRefreshToken, saveToken } from "../../../services/authStorage";
 import styles from "./LoginForm.module.css"
 
 function LoginForm() {
@@ -17,7 +17,8 @@ function LoginForm() {
             setError("");
             const response = await login({ email, password })
             console.log("Login response:", response)
-            saveToken(response.token)
+            saveToken(response.accessToken)
+            saveRefreshToken(response.refreshToken)
             navigate("/dashboard")
 
         } catch (error) {

@@ -16,5 +16,9 @@ export const loginSchema = z.object({
     password: z.string().min(1, "Password is required"),
 })
 
+export const refreshTokenSchema = z.object({
+    refreshToken:z.string().min(1,"REfresh token is required")
+})
+
 export type RegisterRequest = z.infer<typeof registerSchema>;
 export type LoginRequest = z.infer<typeof loginSchema>;

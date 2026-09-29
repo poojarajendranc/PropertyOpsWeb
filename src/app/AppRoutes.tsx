@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import DashboardPage from "../pages/DashboardPage";
-import PropertiesPage from "../pages/PropertiesPage";
 import StaffPage from "../pages/StaffPage";
 import MaintenancePage from "../pages/MaintenancePage";
 import InventoryPage from "../pages/InventoryPage";
@@ -17,7 +16,6 @@ function AppRoutes() {
         <Route element={<ProtectedRoute />}>
           <Route element={<DrawerLayout />}>
             <Route path="/dashboard" element={<DashboardPage />} />
-            <Route path="/properties" element={<PropertiesPage />} />
             <Route path="/staff" element={<StaffPage />} />
             <Route path="/maintenance" element={<MaintenancePage />} />
             <Route path="/inventory" element={<InventoryPage />} />
