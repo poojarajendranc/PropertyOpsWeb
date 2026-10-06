@@ -31,6 +31,7 @@ export const createPropertyData = async (req: Request, res: Response) => {
         )
 
     } catch (error) {
+        console.error("Failed to create property:", error);
         return responseHandler.errorResponse(
             res,
             500,
@@ -60,25 +61,3 @@ export const deletePropertyData = async (req: Request, res: Response) => {
 export const updatePropertyData = () => {
     return null
 }
-
-// export const updateMaintenance = async (req: Request, res: Response) => {
-//     try {
-//         const { id } = req.params;
-//         const { status } = req.body;
-
-//         const updateRequest = await updateMaintenanceStatus(Number(id), status)
-//         return responseHandler.successResponse(res,
-//             200,
-//             "Maintenance status updated successfully",
-//             updateRequest as any
-//         )
-
-//     } catch (error) {
-//         return responseHandler.errorResponse(
-//             res,
-//             500,
-//             "Failed to update maintenance item"
-//         );
-//     }
-// }
-

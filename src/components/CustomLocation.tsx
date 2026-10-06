@@ -173,7 +173,8 @@ function CustomLocation({ value = null, onChange, placeholder = "Select location
     selectedLocation.longitude,] : DEFAULT_LOCATION;
 
     return (
-        <div className={styles.container}>
+        <div 
+       >
             <button
                 type="button"
                 disabled={disabled}
@@ -181,11 +182,11 @@ function CustomLocation({ value = null, onChange, placeholder = "Select location
                 onClick={() => setIsOpen(true)}
             >
                 <MapPin size={18} />
-                <span
+                {/* <span
                     className={
                         value ? styles.value : styles.placeholder}>
                     {value?.address || placeholder}
-                </span>
+                </span> */}
             </button>
 
             {error && (
@@ -235,8 +236,7 @@ function CustomLocation({ value = null, onChange, placeholder = "Select location
                                     onChange={(event) =>
                                         setSearchText(
                                             event.target
-                                                .value,
-                                        )
+                                                .value)
                                     }
                                     onKeyDown={(event) => {
                                         if (event.key === "Enter") {

@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import axios from "axios";
 import styles from '../styles/AddPropertyForm.module.css'
 import { createPropertySchema, type AddPropertyFormData } from '../properties.schema';
@@ -8,6 +8,8 @@ import { useState } from 'react';
 import type { LocationValue } from '../../../components/types';
 import { STRINGS } from '../../../utils/strings';
 import CustomLabel from '../../../components/CustomLabel';
+import { createPropertyRequest } from '../services/propertiesApi';
+import CustomPhoneInput from '../../../components/CustomPhoneInput';
 
 interface AddPropertyFormProps {
     readonly onCreated: () => void;
@@ -15,28 +17,26 @@ interface AddPropertyFormProps {
 
 const AddPropertyForm = ({ onCreated }: AddPropertyFormProps) => {
     const [apiError, setApiError] = useState("");
-    const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<AddPropertyFormData>({
+    const { register, control, handleSubmit, reset, setValue, formState: { errors, isSubmitting } } = useForm<AddPropertyFormData>({
         resolver: zodResolver(createPropertySchema),
         defaultValues: {
             name: "",
             location: "",
             latitude: "",
             longitude: "",
-            countryCode: "",
-            contactNumber: ""
+            contact_number: ""
         }
     })
 
     const onSubmit = async (data: AddPropertyFormData) => {
         try {
             setApiError("")
-            // await createProper({
-            //     ...data,
-            //     status: "Open",
-            // })
+            console.log("Data:", data)
+            await createPropertyRequest(data)
 
             reset();
             onCreated()
+
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 console.error("Failed to create property:", error);
@@ -63,32 +63,60 @@ const AddPropertyForm = ({ onCreated }: AddPropertyFormProps) => {
                 )}
 
             </div>
+            
             <div className={styles.formRow}>
                 <div className={styles.formGroup}>
                     <CustomLabel label='Location'></CustomLabel>
-                    <input type="text"
-                        placeholder='Location'
-                        {...register("location")}>
-                    </input>
-                    <CustomLocation
-                        value={location}
-                        onChange={setLocation}
-                        placeholder="Select property location"
-                    />
+                    <div className={styles.locationInput}>
+                        <div className={styles.locationInputText}>
+                            <input type="text"
+                                placeholder='Location'
+                                {...register("location")}>
+                            </input>
+                        </div>
+                        <div className={styles.locationMarker}>
+                            <CustomLocation
+                                value={location}
+                                onChange={(value) => {
+                                    setLocation(value)
+                                    if (value) {
+                                        setValue("location", value.address);
+                                        setValue("latitude", String(value.latitude));
+                                        setValue("longitude", String(value.longitude))
+                                    }
+                                }}
+                                placeholder="Select property location"
+                            />
+                        </div>
+                    </div>
                     {errors.location && (
                         <p>{errors.location.message}</p>
                     )}
                 </div>
             </div>
+            <div >
+                <CustomLabel label="Contact Number" />
+                <Controller
+                    name="contact_number"
+                    control={control}
+                    render={({ field, fieldState }) => (
+                        <CustomPhoneInput
+                            value={field.value}
+                            onChange={field.onChange}
+                            error={fieldState.error?.message}
+                        />
+                    )}
+                />
+            </div>
             <div className={styles.formRow}>
-                <div className={styles.formGroup}>
+                {/* <div className={styles.formGroup}>
                     <CustomLabel label='Country code'></CustomLabel>
                     <input type="text"
                         placeholder='Country code'
-                        {...register("countryCode")}>
+                        {...register("country_code")}>
                     </input>
-                    {errors.countryCode && (
-                        <p>{errors.countryCode.message}</p>
+                    {errors.country_code && (
+                        <p>{errors.country_code.message}</p>
                     )}
 
                 </div>
@@ -96,13 +124,13 @@ const AddPropertyForm = ({ onCreated }: AddPropertyFormProps) => {
                     <CustomLabel label='Contact Number'></CustomLabel>
                     <input type="text"
                         placeholder='Contact Number'
-                        {...register("contactNumber")}>
+                        {...register("contact_number")}>
                     </input>
-                    {errors.contactNumber && (
-                        <p>{errors.contactNumber.message}</p>
+                    {errors.contact_number && (
+                        <p>{errors.contact_number.message}</p>
                     )}
 
-                </div>
+                </div> */}
                 <button className={styles.submitButton}
                     type="submit" disabled={isSubmitting}>
                     {isSubmitting ? STRINGS.SUBMITTING : STRINGS.SAVE}

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import MaintenanceTable from "../features/maintenance/components/MaintenanceTable";
 import type { MaintenanceRequest } from "../features/maintenance/types/maintenance";
 import MaintenanceDetails from "../features/maintenance/components/MaintenanceDetails";
-import { getMaintenanceRequests } from "../features/maintenance/services/maintenanceApi";
 import CreateMaintenanceForm from "../features/maintenance/components/CreateMaintenanceForm";
 import AppModal from "../components/AppModal";
 import AppToast from "../components/AppToast";

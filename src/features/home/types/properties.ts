@@ -1,9 +1,9 @@
 export interface PropertyRequest {
-    id: number;
+    id?: number;
     name: string,
     location: string,
-    latitude: string,
-    longitude: string,
-    countryCode: string,
-    contactNumber: string,
+    latitude?: string | null,
+    longitude?: string | null,
+    contact_number: string,
+    isSelected?:boolean
 }

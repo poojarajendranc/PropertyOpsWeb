@@ -5,8 +5,8 @@ interface CreatePropertyRequest {
     location: string,
     latitude: string,
     longitude: string,
-    countryCode: string,
-    contactNumber: string,
+    country_code: string,
+    contact_number: string,
 }
 
 export const getProperties = async () => {
@@ -15,20 +15,21 @@ export const getProperties = async () => {
         location,
         latitude,
         longitude,
-        countryCode,
-        contactNumber FROM properties ORDER BY created_at DESC`);
+        country_code,
+        contact_number FROM properties ORDER BY created_at DESC`);
+    console.log("Property ----- :", rows)
     return rows;
 }
 
 export const createProperty = async (request: CreatePropertyRequest) => {
     const [result] = await pool.execute(`INSERT INTO properties(name,
-        location,latitude, longitude,countryCode, contactNumber) VALUES (?,?,?,?,?,?)`,
+        location,latitude, longitude,country_code, contact_number) VALUES (?,?,?,?,?,?)`,
         [request.name,
         request.location,
-        request.latitude,
-        request.longitude,
-        request.countryCode,
-        request.contactNumber
+        request.latitude || null,
+        request.longitude || null,
+        request.country_code,
+        request.contact_number
         ])
 
     return result;

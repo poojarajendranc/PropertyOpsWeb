@@ -71,6 +71,33 @@
     min-height: 100px;
 }
 
+.locationInput {
+    display: flex;
+    width: 100%;
+    /* flex-direction: row; */
+    align-items: center;
+    gap : 8px;
+    /* background-color: #eefccd; */
+}
+
+.locationInputText {
+    flex: 1;
+    min-width: 0;
+    /* display: flex;
+    width: 90%; */
+}
+
+.locationMarker {
+   flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+
+.locationInput input {
+     width: 100%;
+    box-sizing: border-box;
+}
+
 .formRow {
     display: grid;
     grid-template-columns: 1fr 1fr;

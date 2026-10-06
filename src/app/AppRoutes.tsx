@@ -8,18 +8,24 @@ import LoginPage from "../pages/LoginPage";
 import RegistrationPage from "../pages/RegistrationPage";
 import ProtectedRoute from "../components/ProtectedRoute";
 import DrawerLayout from "../layouts/DrawerLayout";
+import { PropertyProvider } from "../services/PropertyProvider";
+import { ToastProvider } from "../context/ToastContext";
 
 function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<ProtectedRoute />}>
+        <Route element={<PropertyProvider/>}>
+        <Route element={<ToastProvider/>}>
           <Route element={<DrawerLayout />}>
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/staff" element={<StaffPage />} />
             <Route path="/maintenance" element={<MaintenancePage />} />
             <Route path="/inventory" element={<InventoryPage />} />
             <Route path="/bookings" element={<BookingsPage />} />
+          </Route>
+          </Route>
           </Route>
         </Route>
         <Route path="/login" element={<LoginPage />} />
